@@ -6,6 +6,7 @@ import { prisma } from "@/lib/db"
 import { stripe } from "@/lib/stripe"
 
 export async function POST(req: Request) {
+  console.log('in POST webhook');
   const body = await req.text()
   const signature = headers().get("Stripe-Signature") as string
 
@@ -20,6 +21,8 @@ export async function POST(req: Request) {
   } catch (error) {
     return new Response(`Webhook Error: ${error.message}`, { status: 400 })
   }
+
+  console.log('event', JSON.stringify(event, null, 2));
 
   const session = event.data.object as Stripe.Checkout.Session
 
