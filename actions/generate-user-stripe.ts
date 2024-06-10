@@ -57,6 +57,7 @@ export async function generateUserStripe(priceId: string): Promise<responseActio
       redirectUrl = stripeSession.url as string
     }
   } catch (error) {
+    console.error(error);
     throw new Error("Failed to generate user stripe session");
   }
 
